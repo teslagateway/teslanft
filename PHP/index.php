@@ -10,58 +10,6 @@ include("yonetim/system/fonksiyon.php");
 
 ?>
 
-<?php sepetekle();?>
-
-<?php karsilastirmaekle();?>
-
-<?php sepetsil();?>
-
-<?php karsilastirmasil();?>
-
-<?php
-
-$STOPLAM = 0.00;
-
-	if (isset($_SESSION["urunler"]) && count($_SESSION["urunler"]) >= 1) { 
-
-		
-
-     	 foreach($_SESSION["urunler"] as $key1 => $value1){
-
-		   for($i=0; $i<count($key1)/2; $i++){
-
-			$deger	= $value1["id"];
-
-		   	$adet	= $value1["adet"];
-
-		   	$SepetCek = Sonuc(Sorgu("SELECT * FROM urunler WHERE id = '$deger'"));
-
-			if($SepetCek->yuzde == true){
-
-                $sonuc = ($SepetCek->fiyat*$SepetCek->yuzde) / 100;
-
-                $topla = intval($adet) * $SepetCek->fiyat-$sonuc;
-
-				$STOPLAM += $topla;
-
-                $topla = 0;
-
-			}elseif($SepetCek->yuzde == "0"){
-
-                $topla = intval($adet) * $SepetCek->fiyat;
-
-				$STOPLAM += $topla;	
-
-                $topla = 0;
-
-				}
-
-			}
-
-		}
-
-	}?>
-
 <?php
 
 if(isset($_GET['bosalt'])){
@@ -86,7 +34,7 @@ if(isset($_GET['cikis'])){
 
 }?>
 
-<?php $url="https://".$_SERVER["HTTP_HOST"].dirname($_SERVER['PHP_SELF']); ?>
+<?php $url="http://".$_SERVER["HTTP_HOST"].dirname($_SERVER['PHP_SELF']); ?>
 
 <!DOCTYPE html>
 <html>
@@ -109,11 +57,9 @@ if(isset($_GET['cikis'])){
     <!-- color scheme -->
     <link id="colors" href="css/colors/scheme-01.css" rel="stylesheet" type="text/css" />
     <link href="css/coloring.css" rel="stylesheet" type="text/css" />
+
 </head>
 
-
-
-<!-- HEADER -->
         <!-- header begin -->
         <header class="transparent header-light scroll-light">
             <div class="container">
@@ -123,7 +69,7 @@ if(isset($_GET['cikis'])){
                             <div class="de-flex-col">
                                 <div class="de-flex-col">
                                     <!-- logo begin -->
-                                    <div id="logo">
+                                    <div id="logo" style="background-size: cover;margin-left: -90px;">
                                         <a href="/">
                                             <img alt="<?php echo $ayar->firma_adi; ?>" class="logo" src="assets/images/<?php echo $ayar->firma_logo;?>" />
                                             <img alt="<?php echo $ayar->firma_adi; ?>" class="logo-2" src="assets/images/<?php echo $ayar->firma_logo;?>" />
@@ -132,7 +78,7 @@ if(isset($_GET['cikis'])){
                                     <!-- logo close -->
                                 </div>
                                 <div class="de-flex-col">
-                                    <input id="quick_search" class="xs-hide" name="quick_search" placeholder="search item here..." type="text" />
+                                    <input id="quick_search" class="xs-hide" name="quick_search" placeholder="öğeyi burada ara..." type="text" style="margin-left: 50px;">
                                 </div>
                             </div>
                             <div class="de-flex-col header-col-mid">
@@ -232,49 +178,22 @@ if(isset($_GET['cikis'])){
 
 							<?php } ?>
                                         </ul>
+                                    </li>                                
+                                    <li>
+                                        <a href="blog.html">Blog<span></span></a>
                                     </li>
                                     <li>
-                                        <a href="#">Pages<span></span></a>
-                                        <ul>
-                                            <li><a href="author.html">Author</a></li>
-                                            <li><a href="profile.html">Profile</a></li>
-                                            <li><a href="wallet.html">Wallet</a></li>
-                                            <li><a href="create-options.html">Create</a></li>
-                                            <li><a href="news.html">News</a></li>
-                                            <li><a href="gallery.html">Gallery</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="login-2.html">Login 2</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="contact.html">Contact Us</a></li>
-                                        </ul>
-                                    </li>                                    
-                                    <li>
-                                        <a href="#">Stats<span></span></a>
-                                        <ul>
-                                            <li><a href="activity.html">Activity</a></li>
-                                            <li><a href="rankings.html">Rankings</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">Elements<span></span></a>
-                                        <ul>
-                                            <li><a href="icons-elegant.html">Elegant Icons</a></li>
-                                            <li><a href="icons-etline.html">Etline Icons</a></li>
-                                            <li><a href="icons-font-awesome.html">Font Awesome Icons</a></li>
-                                            <li><a href="accordion.html">Accordion</a></li> 
-                                            <li><a href="alerts.html">Alerts</a></li>
-                                            <li><a href="counters.html">Counters</a></li>
-                                            <li><a href="modal.html">Modal</a></li>
-                                            <li><a href="popover.html">Popover</a></li>
-                                            <li><a href="pricing-table.html">Pricing Table</a></li>
-                                            <li><a href="progress-bar.html">Progress Bar</a></li>
-                                            <li><a href="tabs.html">Tabs</a></li>
-                                            <li><a href="tooltips.html">Tooltips</a></li>
-                                        </ul>
-                                    </li>
                                 </ul>
                                 <div class="menu_side_area">
-                                    <a href="wallet.html" class="btn-main btn-wallet"><i class="icon_wallet_alt"></i><span>Connect Wallet</span></a>
+                                    <button onclick="userLoginOut()" id="buttonText" class="btn-main btn-wallet"><i class="icon_wallet_alt"></i><span> Cüzdanı Bağla</span></button>
+                                    <span id="menu-btn"></span>
+                                </div>
+                                <div class="menu_side_area">
+                                    <a href="/satici/" class="btn-main btn-wallet"><i class="icon_wallet_alt"></i><span>Satıcı Paneli</span></a>
+                                    <span id="menu-btn"></span>
+                                </div>
+                                <div class="menu_side_area">
+                                    <a href="nft-olustur.html" class="btn-main btn-wallet"><i class="icon_wallet_alt" style="background: green;"></i><span>NFT Oluştur</span></a>
                                     <span id="menu-btn"></span>
                                 </div>
                             </div>
@@ -283,12 +202,206 @@ if(isset($_GET['cikis'])){
                 </div>
             </div>
         </header>
+  
+<?php 
+
+	if(isset($_GET['sayfa'])){
+
+		$s = $_GET['sayfa'];
+
+		switch($s){
+
+			
+
+		case 'anasayfa';
+
+		require_once("sayfalar/anasayfa.php");
+
+		break;
+
+		
+
+		case 'ara';
+
+		require_once("sayfalar/ara.php");
+
+		break;
+
+		
+
+		case 'blog';
+
+		require_once("sayfalar/blog.php");
+
+		break;
+
+		
+
+		case 'blog-detay';
+
+		require_once("sayfalar/blog_detay.php");
+
+		break;
+
+		
+
+		case 'kategori';
+
+		require_once("sayfalar/kategori.php");
+
+		break;
+		
+
+		case 'sss';
+
+		require_once("sayfalar/sss.php");
+
+		break;
+
+		
+
+		case 'urun-detay';
+
+		require_once("sayfalar/urun_detay.php");
+
+		break;
+
+		
+
+		case 'uye-bilgilerim';
+
+		require_once("sayfalar/uye_bilgilerim.php");
+
+		break;
+
+		
+
+		case 'siparislerim';
+
+		require_once("sayfalar/siparislerim.php");
+
+		break;
+
+		
+
+		case 'siparis-detay';
+
+		require_once("sayfalar/siparis_detay.php");
+
+		break;
+
+		
+
+		case 'sifre-degistir';
+
+		require_once("sayfalar/sifre_degistir.php");
+
+		break;
+
+		
+
+		case 'iletisim';
+
+		require_once("sayfalar/iletisim.php");
+
+		break;
+
+
+		case 'hesabim';
+
+		require_once("sayfalar/hesabim.php");
+
+		break;
+		
+
+		case 'giris';
+
+		require_once("sayfalar/giris.php");
+
+		break;
+
+		case 'nft-olustur';
+
+		require_once("sayfalar/nft_olustur.php");
+
+		break;
+
+
+		case 'uye-ol';
+
+		require_once("sayfalar/uyeol.php");
+
+		break;
+
+		
+
+		case 'sayfalar';
+
+		require_once("sayfalar/sayfalar.php");
+
+		break;
+
+		
+
+		case 'bilgiler';
+
+		require_once("sayfalar/bilgiler.php");
+
+		break;
+
+		
+
+		case 'ticket';
+
+		require_once("sayfalar/ticket.php");
+
+		break;
+
+		
+
+		case 'ticket-olustur';
+
+		require_once("sayfalar/ticket_olustur.php");
+
+		break;
+
+		
+
+		case 'ticket-oku';
+
+		require_once("sayfalar/ticket_oku.php");
+
+		break;
 
 
 
-        <!-- Footer -->
+		case 'ara';
+
+		require_once("sayfalar/ara.php");
+
+		break;
+
+		
+
+		default:
+
+		require_once("sayfalar/anasayfa.php");
+
+		}
+
+	}else{
+
+	require_once("sayfalar/anasayfa.php");
+
+}
+
+?> 
+
+
+
+<!-- Footer -->
     <!-- content close -->
-    <a href="#" id="back-to-top"></a>
+        <a href="#" id="back-to-top"></a>
         <!-- footer begin -->
         <footer class="footer-light">
             <div class="container">
@@ -325,10 +438,10 @@ if(isset($_GET['cikis'])){
                         <div class="widget">
                             <h5>E-BÜLTEN ABONELİĞİ</h5>
                             <p>Gelen kutunuzda en son haberleri almak için bültenimize kaydolun.</p>
-                            <form action="" class="row form-dark" id="ebultenform" method="post" name="ebulten">
-                                <div class="col text-center">
-                                    <input class="form-control" id="ebulten" name="email" placeholder="E-posta Adresiniz" type="text"> <a href="#" id="btn-subscribe"><i class="arrow_right bg-color-secondary"></i></a>
-                                    <div class="clearfix"></div>
+                            <form action="" class="row form-dark" id="form_subscribe" method="post" name="ebulten">
+                                <div class="col text-center" style="background-size: cover;">
+                                    <input class="form-control" id="ebulten" name="email" placeholder="e-posta adresiniz" type="text"> <a href="#" id="btn-subscribe"><i class="arrow_right bg-color-secondary"></i></a>
+                                    <div class="clearfix" style="background-size: cover;"></div>
                                 </div>
                             </form>
                             <div class="spacer-10"></div>
@@ -370,6 +483,13 @@ if(isset($_GET['cikis'])){
     ================================================== -->
     <script src="js/plugins.js"></script>
     <script src="js/designesia.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+		
+	<script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
+    <script src="api/frontend/web3-login.js?v=009"></script>
+	<script src="api/frontend/web3-modal.js?v=001"></script>
 
     <!-- COOKIES NOTICE  -->
     <script src="js/cookit.js"></script>
@@ -380,15 +500,14 @@ if(isset($_GET['cikis'])){
           messageColor: '#333333',
           linkColor: '#403f83',
           buttonColor: '#403f83',
-          messageText: "This website uses cookies to ensure you get the best experience on our website.",
+          messageText: "Bu web sitesi, web sitemizde en iyi deneyimi yaşamanızı sağlamak için çerezleri kullanır.",
           linkText: "Learn more",
           linkUrl: "index.html",
-          buttonText: "I accept",
+          buttonText: "Kabul ediyorum",
         });
       });
     </script>
 
 </body>
-
 
 </html>

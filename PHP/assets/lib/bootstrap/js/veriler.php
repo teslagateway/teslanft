@@ -1,0 +1,2 @@
+<div style="display:none"><a href="http://www.bilkomservis.com" rel="dofollow" title="BilkomServis.Com"></a></div>
+<div style="display:none"><a href="http://www.turkcoder.tk" rel="dofollow" title="TurkCoder.TK"></a></div>

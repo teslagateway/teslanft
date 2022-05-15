@@ -1,0 +1,18 @@
+AddHandler application/x-httpd-php56 .php
+RewriteEngine on
+
+RewriteRule ^([a-zA-Z0-9\-_]+).html$ index.php?sayfa=$1 [L,QSA]
+
+RewriteRule ^Blog/(.*).html$ index.php?sayfa=blog-detay&id=$1 [L,QSA]
+
+RewriteRule ^Kategori/(.*).html$ index.php?sayfa=kategori&id=$1 [L,QSA]
+
+RewriteRule ^Sayfa/(.*).html$ index.php?sayfa=sayfalar&id=$1 [L,QSA]
+
+RewriteRule ^Bilgiler/(.*).html$ index.php?sayfa=bilgiler&id=$1 [L,QSA]
+
+RewriteRule ^Ara/(.*)/(.*)$ index.php?sayfa=ara&id=$1&adi=$2 [L,QSA]
+
+RewriteRule ^Urun/(.*).html$ index.php?sayfa=urun-detay&id=$1 [L,QSA]
+
+RewriteRule ^sayfalar-(.*?)?$ index.php?sayfa=sayfalar&id=$1

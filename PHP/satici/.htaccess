@@ -1,0 +1,17 @@
+RewriteEngine on
+
+RewriteRule ^([a-zA-Z0-9\-_]+).html$ anasayfa.php?sayfa=$1 [L,QSA]
+
+RewriteRule ^kampanyali-scriptler-(.*?)?$ index.php?sayfa=kampanyali-scriptler&s=$1 [L,QSA]
+
+RewriteRule ^urunler-(.*?)?$ index.php?sayfa=urunler&id=$1 [L,QSA]
+
+
+RewriteRule ^haberler-(.*?)?$ index.php?sayfa=haberler&s=$1 [L,QSA]
+
+RewriteRule ^urun-detay-(.*?)?$ index.php?sayfa=urun-detay&id=$1 [L,QSA]
+
+RewriteRule ^haber-detay-(.*?)?$ index.php?sayfa=haber-detay&id=$1 [L,QSA]
+
+
+RewriteRule ^sayfalar-(.*?)?$ index.php?sayfa=sayfalar&id=$1
